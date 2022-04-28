@@ -1,0 +1,48 @@
+<html>
+</html>
+
+
+<head>
+
+<script type="text/javascript">
+function calc() {
+	let from  = trimBrackets(document.getElementById("from").value);
+	let to    = trimBrackets(document.getElementById("to").value);
+	let speed = Number(document.getElementById("speed").value);
+	
+	let from_x, from_y, to_x, to_y, dist, sec, min;
+	
+	[from_x, from_y] = from.split(",");
+	[to_x, to_y]     = to.split(",");
+	
+	dist = Math.sqrt(Math.abs(from_x - to_x) ** 2 + Math.abs(from_y - to_y) ** 2);
+	sec = (dist*10000) / speed;
+	min = sec / 60;
+	
+	let result = document.getElementById("result");
+	result.innerHTML = '== 結果 ==<br>'
+		+ '距離: ' + dist + ' Gm<br>'
+		+ '時間(秒):' + sec.toFixed(2) + '<br>'
+		+ '時間(分):' + min.toFixed(2);
+}
+
+function trimBrackets(str) {
+	str = str.replace("(", "");
+	str = str.replace(")", "");	
+	return str;
+}
+
+
+
+
+</script>
+</head>
+<body>
+元座標: <input type="text" id="from" /> <br>
+先座標: <input type="text" id="to" /> <br>
+速度: <input type="text" id="speed" value ="2250"/> <br>
+
+<input type="button" onclick="calc()" value="計算"/> <br>
+<p id="result"></p>
+
+</body>
