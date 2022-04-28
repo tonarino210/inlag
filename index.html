@@ -1,9 +1,7 @@
+<!DOCTYPE html>
 <html>
-</html>
-
-
 <head>
-
+<meta charset="UTF-8">
 <script type="text/javascript">
 function calc() {
 	let from  = trimBrackets(document.getElementById("from").value);
@@ -20,10 +18,10 @@ function calc() {
 	min = sec / 60;
 	
 	let result = document.getElementById("result");
-	result.innerHTML = '== Œ‹‰Ê ==<br>'
-		+ '‹——£: ' + dist + ' Gm<br>'
-		+ 'ŠÔ(•b):' + sec.toFixed(2) + '<br>'
-		+ 'ŠÔ(•ª):' + min.toFixed(2);
+	result.innerHTML = '== çµæœ ==<br>'
+		+ 'è·é›¢: ' + dist + ' Gm<br>'
+		+ 'æ™‚é–“(ç§’):' + sec.toFixed(2) + '<br>'
+		+ 'æ™‚é–“(åˆ†):' + min.toFixed(2);
 }
 
 function trimBrackets(str) {
@@ -32,17 +30,14 @@ function trimBrackets(str) {
 	return str;
 }
 
-
-
-
 </script>
 </head>
 <body>
-Œ³À•W: <input type="text" id="from" /> <br>
-æÀ•W: <input type="text" id="to" /> <br>
-‘¬“x: <input type="text" id="speed" value ="2250"/> <br>
+å…ƒåº§æ¨™: <input type="text" id="from" /> <br>
+å…ˆåº§æ¨™: <input type="text" id="to" /> <br>
+é€Ÿåº¦: <input type="text" id="speed" value ="2250"/> <br>
 
-<input type="button" onclick="calc()" value="ŒvZ"/> <br>
+<input type="button" onclick="calc()" value="è¨ˆç®—"/> <br>
 <p id="result"></p>
-
 </body>
+</html>
