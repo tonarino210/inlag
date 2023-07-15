@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <script type="text/javascript">
 function calc() {
-	let from  = trimBrackets(document.getElementById("from").value);
-	let to    = trimBrackets(document.getElementById("to").value);
+	let from  = _trimBrackets(document.getElementById("from").value);
+	let to    = _trimBrackets(document.getElementById("to").value);
 	let speed = Number(document.getElementById("speed").value);
 	
 	let from_x, from_y, to_x, to_y, dist, sec, min;
@@ -17,14 +17,40 @@ function calc() {
 	sec = (dist*10000) / speed;
 	min = sec / 60;
 	
-	let result = document.getElementById("result");
-	result.innerHTML = '== 結果 ==<br>'
-		+ '距離: ' + dist + ' Gm<br>'
-		+ '時間(秒):' + sec.toFixed(2) + '<br>'
-		+ '時間(分):' + min.toFixed(2);
+	let doc_dist     = document.getElementById("dist");
+	let doc_time_sec = document.getElementById("time_sec");
+	let doc_time_min = document.getElementById("time_min");
+	doc_dist.innerHTML 	   = dist.toFixed(4);
+	doc_time_sec.innerHTML = sec.toFixed(2);
+	doc_time_min.innerHTML = min.toFixed(2);
 }
 
-function trimBrackets(str) {
+function calcSpeed() {
+	let from  = _trimBrackets(document.getElementById("from_2").value);
+	let to   = _trimBrackets(document.getElementById("to_2").value);
+	let time = Number(document.getElementById("time_2").value);
+	
+	let from_x, from_y, to_x, to_y, dist, speed;
+	
+	[from_x, from_y] = from.split(",");
+	[to_x, to_y]     = to.split(",");
+	
+	dist = Math.sqrt(Math.abs(from_x - to_x) ** 2 + Math.abs(from_y - to_y) ** 2);
+	speed = (dist*10000) / time;
+	
+	let doc_dist  = document.getElementById("dist_2");
+	let doc_speed = document.getElementById("speed_2");
+	doc_dist.innerHTML 	= dist.toFixed(4);
+	doc_speed.innerHTML = speed.toFixed(2);
+}
+
+function clearValue(...target_ids) {
+	for (const id of target_ids) {
+		document.getElementById(id).value = "";
+	}
+}
+
+function _trimBrackets(str) {
 	str = str.replace("(", "");
 	str = str.replace(")", "");	
 	return str;
@@ -33,11 +59,36 @@ function trimBrackets(str) {
 </script>
 </head>
 <body>
-元座標: <input type="text" id="from" /> <br>
-先座標: <input type="text" id="to" /> <br>
-速度: <input type="text" id="speed" value ="2250"/> <br>
 
-<input type="button" onclick="calc()" value="計算"/> <br>
-<p id="result"></p>
+<div>
+	<h2>航行時間</h2>
+	元座標: <input type="text" id="from" value="(500,1000)" /> <br>
+	先座標: <input type="text" id="to" value="(4000,2000)" /> <br>
+	速度: <input type="text" id="speed" value ="2000"/> <br>
+
+	<input type="button" onclick="calc()" value="計算"/>
+	<input type="button" onclick="clearValue('from', 'to')" value="座標リセット"/> <br>
+	<div id="result">
+		<p>== 結果 ==</p>
+		<p>距離: <span id="dist"></span> Gm</p>
+		<p>秒: <span id="time_sec"></span></p>
+		<p>分: <span id="time_min"></span></p>
+	</div>
+</div>
+<hr>
+<div>
+	<h2>航行速度</h2>
+	元座標: <input type="text" id="from_2" value="(500,1000)" /> <br>
+	先座標: <input type="text" id="to_2" value="(500,1010)" /> <br>
+	時間(秒): <input type="text" id="time_2" value ="70"/> <br>
+
+	<input type="button" onclick="calcSpeed()" value="計算"/>
+	<input type="button" onclick="clearValue('from_2', 'to_2', 'time_2')" value="リセット"/> <br>
+	<div>
+		<p>== 結果 ==</p>
+		<p>距離: <span id="dist_2"></span> Gm</p>
+		<p>速度: <span id="speed_2"></span></p>
+	</div>
+</div>
 </body>
 </html>
